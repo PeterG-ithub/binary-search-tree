@@ -28,8 +28,20 @@ class Tree
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
-  # def insertion(value, node = @root)
-  #   if value > node.data
-  #     node = 
-  # end 
+  def insertion(value, node = @root)
+    # Break case
+    if node.data.nil?
+      node.data = value
+      return
+    end
+    return if value == node.data # Return if value already exist
+
+    # Loop
+    node = if value > node.data
+             node.right
+           else
+             node.left
+           end
+    insertion(value, node)
+  end
 end
