@@ -2,10 +2,10 @@
 
 # Node class for BST
 class Node
-  attr_accessor :root, :left, :right
+  attr_accessor :data, :left, :right
 
-  def initialize(root, left = nil, right = nil)
-    @root = root
+  def initialize(data, left = nil, right = nil)
+    @data = data
     @left = left
     @right = right
   end
