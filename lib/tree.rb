@@ -9,7 +9,7 @@ class Tree
   end
 
   # Build a balance binary search tree
-  def build_tree(arr, start_idx = 0, end_idx = arr.size)
+  def build_tree(arr, start_idx = 0, end_idx = arr.uniq.size)
     arr.sort!.uniq! # Sort and remove duplicates
     return if start_idx > end_idx
 
@@ -28,7 +28,8 @@ class Tree
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
-  def insertion(value, node = @root)
+  # function to insert a value to the tree
+  def insert(value, node = @root)
     # Break case
     if node.data.nil?
       node.data = value
