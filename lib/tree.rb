@@ -30,7 +30,7 @@ class Tree
 
   # function to insert a value to the tree
   def insert(value, node = @root)
-    # Break case
+    # Base case
     if node.data.nil?
       node.data = value
       return
@@ -43,6 +43,32 @@ class Tree
            else
              node.left
            end
-    insertion(value, node)
+    insert(value, node)
+  end
+
+  # function to delete a value from the tree
+  def delete(value, node = @root)
+    # Base case
+    return node if node.nil?
+
+    if value < node.data
+      node.left = delete(value, node.left)
+    elsif value > node.data
+      node.right = delete(value, node.right)
+    else
+      # one or zero child
+      return node.right if node.left.nil?
+      return node.left if node.right.nil?
+
+      # two children
+      temp = node.right
+      until temp.left.nil?
+        temp = temp.left
+        temp
+      end
+      node.data = temp.data
+      node.right = delete(temp.data, node.right)
+    end
+    node
   end
 end
