@@ -133,11 +133,25 @@ class Tree
     data
   end
 
+  # function to return the max height
   def height(node = @root)
     return -1 if node.nil?
 
     leftmost = height(node.left)
     rightmost = height(node.right)
     [leftmost, rightmost].max + 1
+  end
+
+  # function to return the depth of a given node
+  def depth(value, node = @root, depth = 0)
+    if value == node.data
+      return depth
+    elsif value < node.data
+      level = depth(value, node.left, depth + 1)
+    else
+      level = depth(value, node.right, depth + 1)
+    end
+
+    level
   end
 end
