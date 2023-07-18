@@ -100,20 +100,19 @@ class Tree
     data unless block_given?
   end
 
-  # function to output data of bst inorder
+  # function to output data of inorder traversal
   def inorder(node = @root, data = [])
     return if node.nil?
 
+    inorder(node.left, data)
+    data << node.data
     current = node
-    inorder(current.left, data) unless current.left.nil?
-    current = node
-    data << current.data
-    inorder(current.right, data) unless current.right.nil?
-
+    inorder(current.right, data)
     data.each { |val| yield val } if block_given?
     data
   end
 
+  # function to output data of preorder traversal
   def preorder(node = @root, data = [])
     return if node.nil?
 
@@ -121,6 +120,19 @@ class Tree
     preorder(node.left, data)
     current = node
     preorder(current.right, data)
+    data.each { |val| yield val } if block_given?
+    data
+  end
+
+  # function to output data of postorder traversal
+  def postorder(node = @root, data = [])
+    return if node.nil?
+
+    postorder(node.left, data)
+    current = node
+    postorder(current.right, data)
+    data << node.data
+    data.each { |val| yield val } if block_given?
     data
   end
 end
