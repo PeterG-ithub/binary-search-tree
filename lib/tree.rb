@@ -72,6 +72,7 @@ class Tree
     node
   end
 
+  # function to find a value
   def find(value, node = @root)
     return node if node.data == value
 
@@ -81,5 +82,21 @@ class Tree
              node.left
            end
     find(value, node)
+  end
+
+  # function to output an array in level order
+  def level_order(node = @root)
+    queue = []
+    data = []
+    queue.push(node)
+    until queue.empty?
+      current = queue[0]
+      yield current.data if block_given?
+      data << current.data
+      queue.push(current.left) unless current.left.nil?
+      queue.push(current.right) unless current.right.nil?
+      queue.shift
+    end
+    data unless block_given?
   end
 end
