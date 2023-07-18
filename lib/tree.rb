@@ -154,4 +154,18 @@ class Tree
 
     level
   end
+
+  def balanced?(node = @root)
+    left_sub_tree = height(node.left)
+    right_sub_tree = height(node.right)
+
+    return false if (left_sub_tree - right_sub_tree).abs > 1
+
+    true
+  end
+
+  def rebalance(node = @root)
+    arr = inorder(node)
+    build_tree(arr)
+  end
 end
