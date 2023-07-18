@@ -9,7 +9,7 @@ class Tree
   end
 
   # Build a balance binary search tree
-  def build_tree(arr, start_idx = 0, end_idx = arr.uniq.size)
+  def build_tree(arr, start_idx = 0, end_idx = arr.uniq.size - 1)
     arr.sort!.uniq! # Sort and remove duplicates
     return if start_idx > end_idx
 
@@ -30,20 +30,17 @@ class Tree
 
   # function to insert a value to the tree
   def insert(value, node = @root)
-    # Base case
-    if node.data.nil?
-      node.data = value
-      return
-    end
-    return if value == node.data # Return if value already exist
+    return if node.nil?
+    return node if node.data == value
 
-    # Loop
-    node = if value > node.data
-             node.right
-           else
-             node.left
-           end
-    insert(value, node)
+    if value > node.data
+      insert(value, node.right)
+      node.right = Node.new(value) if node.right.nil?
+    else
+      insert(value, node.left)
+      node.left = Node.new(value) if node.left.nil?
+    end
+    node
   end
 
   # function to delete a value from the tree
