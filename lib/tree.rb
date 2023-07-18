@@ -110,8 +110,17 @@ class Tree
     data << current.data
     inorder(current.right, data) unless current.right.nil?
 
-    data unless block_given?
-
     data.each { |val| yield val } if block_given?
+    data
+  end
+
+  def preorder(node = @root, data = [])
+    return if node.nil?
+
+    data << node.data
+    preorder(node.left, data)
+    current = node
+    preorder(current.right, data)
+    data
   end
 end
