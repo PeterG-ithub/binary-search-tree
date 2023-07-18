@@ -98,38 +98,46 @@ class Tree
   end
 
   # function to output data of inorder traversal
-  def inorder(node = @root, data = [])
+  def inorder(node = @root, data = [], &block)
     return if node.nil?
 
     inorder(node.left, data)
     data << node.data
     current = node
     inorder(current.right, data)
-    data.each { |val| yield val } if block_given?
+    data.each(&block) if block_given?
     data
   end
 
   # function to output data of preorder traversal
-  def preorder(node = @root, data = [])
+  def preorder(node = @root, data = [], &block)
     return if node.nil?
 
     data << node.data
     preorder(node.left, data)
     current = node
     preorder(current.right, data)
-    data.each { |val| yield val } if block_given?
+    data.each(&block) if block_given?
     data
   end
 
   # function to output data of postorder traversal
-  def postorder(node = @root, data = [])
+  def postorder(node = @root, data = [], &block)
     return if node.nil?
 
     postorder(node.left, data)
     current = node
     postorder(current.right, data)
     data << node.data
-    data.each { |val| yield val } if block_given?
+    data.each(&block) if block_given?
     data
+  end
+
+  def height(node = @root)
+    return -1 if node.nil?
+
+    leftmost = height(node.left)
+    rightmost = height(node.right)
+    [leftmost, rightmost].max + 1
   end
 end
