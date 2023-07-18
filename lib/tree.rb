@@ -99,4 +99,19 @@ class Tree
     end
     data unless block_given?
   end
+
+  # function to output data of bst inorder
+  def inorder(node = @root, data = [])
+    return if node.nil?
+
+    current = node
+    inorder(current.left, data) unless current.left.nil?
+    current = node
+    data << current.data
+    inorder(current.right, data) unless current.right.nil?
+
+    data unless block_given?
+
+    data.each { |val| yield val } if block_given?
+  end
 end
